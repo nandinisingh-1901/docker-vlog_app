@@ -1,6 +1,8 @@
 # create .gitignore with common Java/Maven ignores
 @"
 /target
+/.mvn
+/.vscode
 /.idea
 *.iml
 *.log
