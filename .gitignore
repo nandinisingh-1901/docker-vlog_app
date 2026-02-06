@@ -1,16 +1,9 @@
-# create .gitignore with common Java/Maven ignores
-@"
 /target
-/.mvn
 /.vscode
 /.idea
+/.mvn
 *.iml
 *.log
 *.class
 /*.jar
 .env
-"@ | Out-File -Encoding utf8 .gitignore
-
-git init
-git add .
-git commit -m "Initial commit"
