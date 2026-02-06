@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vlogs</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 30px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 30px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .vlog-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .vlog-title {
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            background: transparent;
+            margin-bottom: 10px;
+        }
+
+        .vlog-content {
+            width: 100%;
+            border: none;
+            resize: none;
+            background: transparent;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .top-right-btn {
+            position: absolute;
+            top: 18px;
+            right: 30px;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .middle {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            padding: 8px 50px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .top-right-btn:hover {
+            background-color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #f1f1f1;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>My Vlogs</h1>
+    <a th:href="@{/search-by-title}" >Search by title</a><br>
+    <a th:href="@{/delete-all-vlogs}" >Delete All Vlog</a><br>
+    <a th:href="@{/add-vlog}" class="top-right-btn">Add Vlog</a>
+</header>
+
+<main>
+
+    <div th:each="vlog : ${vlogs}" class="vlog-card">
+        <form>
+            <input type="text"
+                   class="vlog-title"
+                   th:value="${vlog.title}"
+                   readonly />
+
+            <input class="vlog-content"
+                      rows="4"
+                      readonly
+                      th:text="${vlog.content}">
+            </input>
+
+        </form>
+        <div style="margin-top:12px;">
+
+            <!-- EDIT -->
+            <form th:action="@{/edit/{id}(id=${vlog.id})}"
+                  method="get"
+                  style="display:inline;">
+                <button type="submit">Edit</button>
+            </form>
+
+            <!-- DELETE -->
+            <form th:action="@{/delete/{id}(id=${vlog.id})}"
+                  method="post"
+                  style="display:inline;"
+                  onsubmit="return confirm('Delete this vlog?');">
+                <button type="submit">Delete</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <p th:if="${#lists.isEmpty(vlogs)}"
+       style="text-align:center; color:#777;">
+        No vlogs available
+    </p>
+
+
+
+</main>
+
+<footer>
+    <p>&copy; 2026 My Website</p>
+</footer>
+
+</body>
+</html>
